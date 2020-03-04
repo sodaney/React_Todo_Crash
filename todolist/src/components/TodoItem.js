@@ -1,13 +1,40 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export class TodoItem extends Component {
-    render() {
-        return (
-            <div>
-                <p>{this.props.todo.title}</p>
-            </div>
-        )
-    }
+  getStyle = () => {
+    return {
+      backgroud: '#f4f4f4',
+      padding: '10px',
+      borderBottom: '1px #ccc dotted',
+      textDecoration: this.props.todo.completed ? 'line-through' : 'none'
+    };
+  };
+
+  render() {
+    const { id, title } = this.props.todo;
+    return (
+      <div style={this.getStyle()}>
+        <input
+          type='checkbox'
+          onChange={this.props.markComplete.bind(this, id)}
+        />{' '}
+        <p>{title}</p>
+        <button onClick={this.props.delTodo.bind(this, id)} style={btnStyle}>
+          x
+        </button>
+      </div>
+    );
+  }
 }
 
-export default TodoItem
+const btnStyle = {
+  background: '#ff0000',
+  color: '#fff',
+  border: 'none',
+  padding: '5px 9px',
+  borderRadius: '50%',
+  cursor: 'pointer',
+  float: 'right'
+};
+
+export default TodoItem;
